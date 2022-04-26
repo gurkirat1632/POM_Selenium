@@ -1,0 +1,11 @@
+
+
+login logout
+invalid login
+add to cart from search results
+add to cart from quick view
+cart operation - delete
+contact us - send message
+working of logo - take to home page
+search item and validate sorting
+
