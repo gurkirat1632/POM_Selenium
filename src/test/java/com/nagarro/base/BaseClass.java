@@ -14,10 +14,10 @@ import org.testng.annotations.BeforeSuite;
 import com.aventstack.extentreports.ExtentTest;
 import com.nagarro.config.Configs;
 import com.nagarro.pages.Cart;
-import com.nagarro.pages.ContactUs;
+
 import com.nagarro.pages.Header;
 import com.nagarro.pages.HomePage;
-import com.nagarro.pages.SearchResults;
+import com.nagarro.pages.ProductInfo;
 import com.nagarro.pages.SignIn;
 import com.nagarro.utils.project.Amazon_Lib;
 import com.nagarro.utils.reporting.AssertionLog;
@@ -30,14 +30,13 @@ public class BaseClass {
     public WebDriver           driver;
     public SignIn              signIn;
     public Header              header;
-    public ContactUs           contactus;
-    public SearchResults       results;
     public ExtentTest          test;
     public AssertionLog        assertionLog;
     public ExtentReportLogger  logger;
     public ExtentReportManager reportManger;
     public Cart                cart;
     public HomePage            homepage;
+    public ProductInfo       productPage;
 
     /****
      * Description : this function will be run before every test method, this will launch browser and then initialize all the page objects Usage : none
@@ -57,10 +56,11 @@ public class BaseClass {
         // below objects can b movmoved to respective test classes
         signIn = new SignIn(driver, assertionLog);
         header = new Header(driver);
-        contactus = new ContactUs(driver, assertionLog);
+      
         cart = new Cart(driver, assertionLog);
         homepage = new HomePage(driver, assertionLog);
-        results = new SearchResults(driver, assertionLog);
+     
+        productPage= new ProductInfo(driver, assertionLog);
 
     }
 

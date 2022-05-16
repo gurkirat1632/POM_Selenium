@@ -1,5 +1,6 @@
 package com.nagarro.utils.web;
 
+import java.time.Duration;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -11,7 +12,11 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import com.nagarro.config.Configs;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 
@@ -50,6 +55,7 @@ public class Web_Lib {
 
     public WebElement getElement(final String strBy, final String value) {
         System.out.println("Finding element by " + strBy + " with value " + value);
+        pageWait();
         final WebElement element = null;
         switch (strBy.toLowerCase()) {
             case "id":
@@ -211,7 +217,9 @@ public class Web_Lib {
     }
 
     public void click(final WebElement element) {
-        element.click();
+    	WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(Configs.explicitTimeout));
+        wait.until(ExpectedConditions.elementToBeClickable(element));
+    	element.click();
     }
 
     public void click(final String strBy, final String value) {
@@ -278,4 +286,16 @@ public class Web_Lib {
         final JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("window.scrollBy(0,600)");
     }
+    
+    public void pageWait() {
+    	try {
+			Thread.sleep(500);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    }
+    
+    
+
 }
