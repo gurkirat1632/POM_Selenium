@@ -32,8 +32,9 @@ public class Web_Lib {
         WebDriver returnDriver;
         switch (strBrowser.toLowerCase()) {
             case "chrome":
+            	Chrome optionsObject = new Chrome();
                 WebDriverManager.chromedriver().setup();
-                returnDriver = new ChromeDriver();
+                returnDriver = new ChromeDriver(optionsObject.options);
                 break;
             case "firefox":
                 WebDriverManager.firefoxdriver().setup();
