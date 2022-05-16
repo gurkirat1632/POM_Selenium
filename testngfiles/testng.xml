@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="MyArtifactSuite" >
+  <!--
+       thread-count="5"
+       parallel="classes"
+
+  -->
+  <listeners>
+    <listener class-name="com.nagarro.utils.reporting.TNGListener"></listener>
+
+  </listeners>
+  <test name="Regression">
+   <parameter name="browser" value="Chrome"/>
+    <classes>
+      <class name="com.nagarro.tests.LoginTest"/>
+      <class name="com.nagarro.tests.AddItemTest"/>
+
+
+    </classes>
+
+  </test>
+</suite>
