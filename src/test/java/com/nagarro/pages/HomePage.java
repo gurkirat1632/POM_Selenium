@@ -3,6 +3,9 @@ package com.nagarro.pages;
 import com.nagarro.config.Configs;
 import com.nagarro.utils.web.Web_Lib;
 import com.nagarro.utils.reporting.AssertionLog;
+
+import java.time.Duration;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -20,7 +23,7 @@ public class HomePage {
     public HomePage(WebDriver driver, AssertionLog assertionLog){
         this.driver = driver;
         webLib = new Web_Lib(this.driver);
-        wait = new WebDriverWait(driver, Configs.explicitTimeout);
+        wait = new WebDriverWait(driver, Duration.ofSeconds(Configs.explicitTimeout));
         this.assertionLog = assertionLog;
     }
 

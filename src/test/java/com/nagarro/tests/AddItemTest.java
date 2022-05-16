@@ -27,9 +27,9 @@ public class AddItemTest extends BaseClass {
     }
 
     @Test(groups = { "LoggedInUser", "Regression" }, alwaysRun = true)
-    public void addItemViaQuickView() {
+    public void addItemToCart() {
         // launching and moving to page is part of before method
-        test = startTest("Add Item via Quick view", "Adding item via quick view after hovering and validating its presence in cart");
+        test = startTest("Add Item to Cart", "Adding item to Cart from Home Page");
         test.assignCategory("AddToCart");
         // input dta
         final String strSearch = "printed";

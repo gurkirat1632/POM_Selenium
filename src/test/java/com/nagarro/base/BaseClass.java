@@ -1,6 +1,7 @@
 package com.nagarro.base;
 
 import java.lang.reflect.Method;
+import java.time.Duration;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
@@ -46,7 +47,7 @@ public class BaseClass {
     public void beforeEveryMethod(final Method method) {
         System.out.println("Before method from base class");
         driver = launchBrowser();
-        driver.manage().timeouts().implicitlyWait(Configs.implicitTimeout, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(Configs.implicitTimeout));
         driver.manage().window().maximize();
         driver.get(Configs.getPropertyConfig("url"));
 

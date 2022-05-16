@@ -12,11 +12,11 @@ public class SignIn {
 
     // locators
     String[] loc_signInDb = {"class","login"};
-    String[] loc_signIn = {"id","SubmitLogin"};
-    String[] loc_user = {"id","email"};
-    String[] loc_password = {"id","passwd"};
-    String[] loc_error = {"classcontains","alert-danger"};
-    String[] loc_signOut = {"class","logout"};
+    String[] loc_signIn = {"id","login-button"};
+    String[] loc_user = {"id","user-name"};
+    String[] loc_password = {"id","password"};
+    String[] loc_error = {"xpath","//h3"};
+    String[] loc_signOut = {"id","shopping_cart_container"};
 
     public SignIn(WebDriver driver, AssertionLog assertionLog){
         this.driver = driver;
@@ -46,7 +46,7 @@ public class SignIn {
     }
 
     public void login(String userName, String password){
-        movetoSignInPage();
+        //movetoSignInPage();
         setUserName(userName);
         setPassword(password);
         clickSignIn();

@@ -32,10 +32,7 @@ public class LoginTest extends BaseClass {
         signIn.login(struser, password);
         logger.logInfo("Validating if user is on logged in user dashboard or not");
         signIn.validateOnDashboard();
-        logger.logInfo("Logging out of application");
-        header.signOut();
-        logger.logInfo("Validate user on login screen again");
-        signIn.validateOnLoginScreen();
+
 
     }
 
@@ -56,9 +53,9 @@ public class LoginTest extends BaseClass {
 
     @DataProvider(name = "invalidLogin")
     public static Object[][] invalidLoginData() {
-        return new Object[][] { { new String[] { "abc@yopmail.com", "1234566" }, "There is 1 errorAuthentication failed." },
-                { new String[] { "abc@yopmail.com", "" }, "There is 1 errorPassword is required." },
-                { new String[] { "", "sdfwr3535" }, "There is 1 errorAn email address required." },
+        return new Object[][] { { new String[] { "abc@yopmail.com", "1234566" }, "Epic sadface: Username and password do not match any user in this service" },
+                { new String[] { "abc@yopmail.com", "" }, "Epic sadface: Password is required" },
+                { new String[] { "", "sdfwr3535" }, "Epic sadface: Username is required" },
                 // {new String[]{"sdfsfs","232sdw3sdf"}, "There is 1 errorInvalid email address."},
         };
     }

@@ -10,6 +10,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,7 +40,7 @@ public class SearchResults {
     public SearchResults(WebDriver driver, AssertionLog assertionLog){
         this.driver = driver;
         webLib = new Web_Lib(this.driver);
-        wait = new WebDriverWait(driver, Configs.explicitTimeout);
+        wait = new WebDriverWait(driver, Duration.ofSeconds(Configs.explicitTimeout));
         this.assertionLog = assertionLog;
     }
 
