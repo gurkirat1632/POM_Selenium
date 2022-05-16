@@ -10,6 +10,7 @@ import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.Parameters;
 
 import com.aventstack.extentreports.ExtentTest;
 import com.nagarro.config.Configs;
@@ -42,10 +43,11 @@ public class BaseClass {
      * Description : this function will be run before every test method, this will launch browser and then initialize all the page objects Usage : none
      * parameter: method : the method paramenter to get information regarding the test method run
      */
+    @Parameters("browser")
     @BeforeMethod(alwaysRun = true)
-    public void beforeEveryMethod(final Method method) {
+    public void beforeEveryMethod(final Method method, String browser) {
         System.out.println("Before method from base class");
-        driver = launchBrowser();
+        driver = launchBrowser(browser);
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(Configs.implicitTimeout));
         driver.manage().window().maximize();
         driver.get(Configs.getPropertyConfig("url"));
@@ -125,8 +127,9 @@ public class BaseClass {
     }
 
     /****
-     * Description : this function willlaunch the browser, based on input from config file Usage :
+     * Description : this function will launch the browser, based on input from config file Usage :
      */
+    
     public WebDriver launchBrowser() {
         final String browser = Configs.browser;
         return launchBrowser(browser);
