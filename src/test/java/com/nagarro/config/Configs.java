@@ -13,7 +13,7 @@ public class Configs {
     public static String dateFormat = "dd-MMM-yyyy hh:mm"; // for extent report
     public static String strProjectPath = System.getProperty("user.dir");
     public static String strConfigPath = System.getProperty("user.dir") + "\\src\\test\\resources\\configs\\";
-    public static Properties propsConfig = readPropertiesFile("AutomationPractice.properties");
+    public static Properties propsConfig = readPropertiesFile("coreConfigration.properties");
     public static Properties propsInput = readPropertiesFile("InputData.properties");
     public static String strWebDriverPath = System.getProperty("user.dir") + "\\src\\test\\resources\\webdrivers\\";
     public static String strResultPath = System.getProperty("user.dir") + "\\" + getPropertyConfig("resultFolder") + "\\";

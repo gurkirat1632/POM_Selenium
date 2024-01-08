@@ -8,6 +8,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -38,7 +39,7 @@ public class Cart {
     public Cart(WebDriver driver, AssertionLog assertionLog){
         this.driver = driver;
         webLib = new Web_Lib(this.driver);
-        wait = new WebDriverWait(driver, Configs.explicitTimeout);
+        wait = new WebDriverWait(driver, Duration.ofSeconds(Configs.explicitTimeout));
         this.assertionLog = assertionLog;
     }
 

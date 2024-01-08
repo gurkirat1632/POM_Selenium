@@ -1,6 +1,7 @@
 package com.nagarro.base;
 
 import java.lang.reflect.Method;
+import java.time.Duration;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
@@ -9,14 +10,15 @@ import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.Parameters;
 
 import com.aventstack.extentreports.ExtentTest;
 import com.nagarro.config.Configs;
 import com.nagarro.pages.Cart;
-import com.nagarro.pages.ContactUs;
+
 import com.nagarro.pages.Header;
 import com.nagarro.pages.HomePage;
-import com.nagarro.pages.SearchResults;
+import com.nagarro.pages.ProductInfo;
 import com.nagarro.pages.SignIn;
 import com.nagarro.utils.project.Amazon_Lib;
 import com.nagarro.utils.reporting.AssertionLog;
@@ -29,24 +31,24 @@ public class BaseClass {
     public WebDriver           driver;
     public SignIn              signIn;
     public Header              header;
-    public ContactUs           contactus;
-    public SearchResults       results;
     public ExtentTest          test;
     public AssertionLog        assertionLog;
     public ExtentReportLogger  logger;
     public ExtentReportManager reportManger;
     public Cart                cart;
     public HomePage            homepage;
+    public ProductInfo       productPage;
 
     /****
      * Description : this function will be run before every test method, this will launch browser and then initialize all the page objects Usage : none
      * parameter: method : the method paramenter to get information regarding the test method run
      */
+    @Parameters("browser")
     @BeforeMethod(alwaysRun = true)
-    public void beforeEveryMethod(final Method method) {
+    public void beforeEveryMethod(final Method method, String browser) {
         System.out.println("Before method from base class");
-        driver = launchBrowser();
-        driver.manage().timeouts().implicitlyWait(Configs.implicitTimeout, TimeUnit.SECONDS);
+        driver = launchBrowser(browser);
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(Configs.implicitTimeout));
         driver.manage().window().maximize();
         driver.get(Configs.getPropertyConfig("url"));
 
@@ -56,10 +58,11 @@ public class BaseClass {
         // below objects can b movmoved to respective test classes
         signIn = new SignIn(driver, assertionLog);
         header = new Header(driver);
-        contactus = new ContactUs(driver, assertionLog);
+      
         cart = new Cart(driver, assertionLog);
         homepage = new HomePage(driver, assertionLog);
-        results = new SearchResults(driver, assertionLog);
+     
+        productPage= new ProductInfo(driver, assertionLog);
 
     }
 
@@ -124,8 +127,9 @@ public class BaseClass {
     }
 
     /****
-     * Description : this function willlaunch the browser, based on input from config file Usage :
+     * Description : this function will launch the browser, based on input from config file Usage :
      */
+    
     public WebDriver launchBrowser() {
         final String browser = Configs.browser;
         return launchBrowser(browser);

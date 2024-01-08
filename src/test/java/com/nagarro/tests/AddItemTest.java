@@ -27,44 +27,36 @@ public class AddItemTest extends BaseClass {
     }
 
     @Test(groups = { "LoggedInUser", "Regression" }, alwaysRun = true)
-    public void addItemViaQuickView() {
+    public void addItemToCart() {
         // launching and moving to page is part of before method
-        test = startTest("Add Item via Quick view", "Adding item via quick view after hovering and validating its presence in cart");
+        test = startTest("Add Item to Cart", "Adding item to Cart from Home Page");
         test.assignCategory("AddToCart");
         // input dta
-        final String strSearch = "printed";
-        final int qty = 1;
+        final String strSearch = "Sauce Labs Backpack";
         signIn.login(Configs.getPropertyInputData("user"), Configs.getPropertyInputData("password"));
-        logger.logInfo("Search product via keyword " + "printed");
-        header.searchItem(strSearch);
-        logger.logInfo("Add item via quick view after hovering over image");
-        final String[] prodData = results.addFirstItemToCart_QuickView(qty);
-        logger.logInfo("Validate if added item is present with name " + prodData[0]);
-        cart.validateItemPresent(prodData[0]);
-        logger.logInfo("Validate item added with correct detials in cart");
-        cart.validateItemDetails(prodData[0], prodData[1], prodData[2]);
-        logger.logInfo("Validate cart summary calculations");
-        cart.validateCartTotals();
+        logger.logInfo("Clicking on Left hand panel");
+        header.clickLeftHandPanel();
+        homepage.clickOnProduct(strSearch);
+        productPage.validateIfRightProductInfo(strSearch);
+        productPage.addItemToCart();
+        header.clickLeftHandPanel();
+        header.logOut();
+        
+
     }
 
     @Test(groups = { "GuestUser", "Smoke", "Regression" })
-    public void addItemDirectlyWithQuantity() {
-        test = startTest("Add Item from search results", "Adding item from search results and validating its presence in cart");
+    public void addItemDirectlyWithoutProductPage() {
+        test = startTest("Add Item from Home Page", "Adding item from home page directly.");
         test.assignCategory("AddToCart");
-        // input data
-        final String strSearch = "printed";
-        final int qty = 1; // setting quantity to 1 for now as the option to edit quantity is no more on site
-
-        logger.logInfo("Search product via keyword " + "printed");
-        header.searchItem(strSearch);
-        logger.logInfo("Add first item from list via add to cart button");
-        final String[] prodData = results.addFirstItemToCart(qty);
-        logger.logInfo("Validate if added item is present with name " + prodData[0]);
-        cart.validateItemPresent(prodData[0]);
-        logger.logInfo("Validate item added with correct detials in cart");
-        cart.validateItemDetails(prodData[0], prodData[1], prodData[2]);
-        logger.logInfo("Validate cart summary calculations");
-        cart.validateCartTotals();
+        // input dta
+        final String strSearch = "Sauce Labs Backpack";
+        signIn.login(Configs.getPropertyInputData("user"), Configs.getPropertyInputData("password"));
+        logger.logInfo("Clicking on Left hand panel");
+        header.clickLeftHandPanel();
+        homepage.clickOnAddCartForBag();
+        //header.clickLeftHandPanel();
+        header.logOut();
     }
 
 }

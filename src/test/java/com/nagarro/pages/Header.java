@@ -22,6 +22,8 @@ public class Header {
     String[] loc_subCatEvening = {"xpath","//*[@title='Evening Dresses']"};
     String[] loc_cart = {"xpath","//a[@title='View my shopping cart']"};
     String[] loc_logo = {"id","header_logo"};
+    String[] loc_LHP = {"id","react-burger-menu-btn"};
+    String[] loc_LogOut = {"id","logout_sidebar_link"};
 
 
     public Header(WebDriver driver){
@@ -41,9 +43,8 @@ public class Header {
      * Usage :
      * Paramenter : strSearch value to be searched
      */
-    public void searchItem(String strSearch){
-        webLib.setText(loc_search, strSearch);
-        webLib.click(loc_submit);
+    public void clickLeftHandPanel(){
+        webLib.click(loc_LHP);
     }
 
     /****
@@ -93,6 +94,15 @@ public class Header {
         }
         else
             System.out.println("Invalid category");
+    }
+    
+    /****
+     * Description : this function will search item by filling value in field
+     * Usage :
+     * Paramenter : strSearch value to be searched
+     */
+    public void logOut(){
+        webLib.click(loc_LogOut);
     }
 
 
