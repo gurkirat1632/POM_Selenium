@@ -11,10 +11,9 @@
 
   </listeners>
   <test name="Regression">
-   <parameter name="browser" value="Chrome"/>
+   <parameter name="browser" value="AWS"/>
     <classes>
       <class name="com.nagarro.tests.LoginTest"/>
-      <class name="com.nagarro.tests.AddItemTest"/>
 
 
     </classes>

@@ -1,6 +1,7 @@
 package com.nagarro.utils.web;
 
 import java.time.Duration;
+
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -12,11 +13,20 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import com.mongodb.assertions.Assertions;
 import com.nagarro.config.Configs;
+
+import software.amazon.awssdk.regions.Region;
+import software.amazon.awssdk.services.devicefarm.DeviceFarmClient;
+import software.amazon.awssdk.services.devicefarm.model.CreateTestGridUrlRequest;
+import software.amazon.awssdk.services.devicefarm.model.CreateTestGridUrlResponse;
+import java.net.URL;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 
@@ -29,21 +39,46 @@ public class Web_Lib {
     }
 
     public static WebDriver launchBrowser(final String strBrowser) {
-        WebDriver returnDriver;
+        System.out.println("Browser passed is :"+strBrowser);
+    	WebDriver returnDriver;
         switch (strBrowser.toLowerCase()) {
             case "chrome":
             	Chrome optionsObject = new Chrome();
-                WebDriverManager.chromedriver().setup();
+                //WebDriverManager.chromedriver().setup();
                 returnDriver = new ChromeDriver(optionsObject.options);
                 break;
             case "firefox":
-                WebDriverManager.firefoxdriver().setup();
+                //WebDriverManager.firefoxdriver().setup();
                 returnDriver = new FirefoxDriver();
                 break;
             case "edge":
-                WebDriverManager.edgedriver().setup();
+                //WebDriverManager.edgedriver().setup();
                 returnDriver = new EdgeDriver();
                 break;
+                
+            case "aws":
+            	 String myProjectARN = "arn:aws:devicefarm:us-west-2:017759383303:testgrid-project:7dfd7e56-ee45-4a86-b8c4-23c04fd7530f";
+            	    DeviceFarmClient client  = DeviceFarmClient.builder().region(Region.US_WEST_2).build();
+            	    CreateTestGridUrlRequest request = CreateTestGridUrlRequest.builder()
+            	      .expiresInSeconds(300)
+            	      .projectArn(myProjectARN)
+            	      .build();
+                    URL testGridUrl = null;
+                    try {
+                        CreateTestGridUrlResponse response = client.createTestGridUrl(request);
+                        testGridUrl = new URL(response.url());
+                    } catch (Exception e) {
+                    	System.out.println(e);
+                        e.printStackTrace();
+                    }
+                    DesiredCapabilities desired_capabilities = new DesiredCapabilities();
+                    desired_capabilities.setCapability("browserName","Chrome");
+                    desired_capabilities.setCapability("browserVersion", "latest");
+                    desired_capabilities.setCapability("platform", "windows");
+                    // Or
+                    returnDriver = new RemoteWebDriver(testGridUrl, desired_capabilities);
+            	    
+            	break;
             default:
                 returnDriver = null;
         }
